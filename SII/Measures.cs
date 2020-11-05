@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProximityMeasures
+namespace SII
 {
     public class Measures
     {
@@ -81,10 +81,10 @@ namespace ProximityMeasures
                 result++;
             }
 
-            if (lection1.Country == lection2.Country)
-            {
-                result++;
-            }
+            //if (lection1.Country == lection2.Country)
+            //{
+            //    result++;
+            //}
             if (lection1.Rating == lection2.Rating)
             {
                 result++;
@@ -93,7 +93,11 @@ namespace ProximityMeasures
             {
                 result++;
             }
-            if(lection1.Year==lection2.Year)
+            if (lection1.Language == lection2.Language) ;
+            {
+                result++;
+            }
+            if (lection1.Year==lection2.Year)
             {
                 result++;
             }

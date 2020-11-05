@@ -6,7 +6,7 @@ using Graphviz4Net.Primitives;
 using System.IO;
 using System.Linq;
 
-namespace ProximityMeasures
+namespace SII
 {
     public class GraphDistance
     {

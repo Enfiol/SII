@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ProximityMeasures
+namespace SII
 {
     public class Lection
     {
+        [Key]
+        public int Id { get; set; }
         public string Title { get; set; }
         public string University { get; set; } 
-        public string Country { get; set; }
+        //public string Country { get; set; }
         public string Subject { get; set; }
         public string Language { get; set; } 
         public string Author { get; set; } 
