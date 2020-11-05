@@ -1,0 +1,790 @@
+digraph G {
+    Lections;
+
+    Russia;
+    USA;
+    UK;
+
+    Lections -> Russia;
+    Lections -> USA;
+    Lections -> UK;
+
+  
+    BMSTU[label="Bauman Moscow State Technical University"];
+    MSU[label="Lomonosov Moscow State University"];
+    HSE[label="Higher School of Economics"];
+
+    Russia -> BMSTU;
+    Russia -> MSU;
+    Russia -> HSE;
+
+    Cambridge;
+    Oxford;
+    Warwick;
+
+    UK -> Cambridge;
+    UK -> Oxford;
+    UK -> Warwick;
+
+    MIT [label="Massachusetts Institute of Technology"];
+    Harvard;
+    Stanford;
+
+    USA -> Harvard;
+    USA -> MIT;
+    USA -> Stanford;
+
+    
+    bmstu_math [label="Higher mathematics"];
+    bmstu_oop [label="Object oriented programming"];
+    bmstu_db [label="Database"];
+
+    msu_math [label="Higher mathematics"];
+    msu_oop [label="Object oriented programming"];
+    msu_db [label="Database"];
+
+    hse_math [label="Higher mathematics"];
+    hse_oop [label="Object oriented programming"];
+    hse_db [label="Database"];
+
+    cam_math [label="Higher mathematics"];
+    cam_oop [label="Object oriented programming"];
+    cam_db [label="Database"];
+
+    ox_math [label="Higher mathematics"];
+    ox_oop [label="Object oriented programming"];
+    ox_db [label="Database"];
+
+    ww_math [label="Higher mathematics"];
+    ww_oop [label="Object oriented programming"];
+    ww_db [label="Database"];
+
+    har_math [label="Higher mathematics"];
+    har_oop [label="Object oriented programming"];
+    har_db [label="Database"];
+
+    mit_math [label="Higher mathematics"];
+    mit_oop [label="Object oriented programming"];
+    mit_db [label="Database"];
+
+    stan_math [label="Higher mathematics"];
+    stan_oop [label="Object oriented programming"];
+    stan_db [label="Database"];
+
+    BMSTU -> bmstu_math;
+    BMSTU -> bmstu_oop;
+    BMSTU -> bmstu_db;
+    MSU -> msu_math;
+    MSU -> msu_oop;
+    MSU -> msu_db;
+    HSE -> hse_db;
+    HSE -> hse_math;
+    HSE -> hse_oop;
+    Cambridge -> cam_math;
+    Cambridge -> cam_oop;
+    Cambridge -> cam_db;
+    Oxford -> ox_db;
+    Oxford -> ox_math;
+    Oxford -> ox_oop;
+    Warwick -> ww_db;
+    Warwick -> ww_math;
+    Warwick -> ww_oop;
+    Harvard -> har_db;
+    Harvard -> har_math;
+    Harvard -> har_oop;
+    MIT -> mit_db;
+    MIT -> mit_math;
+    MIT -> mit_oop;
+    Stanford -> stan_db;
+    Stanford -> stan_math;
+    Stanford -> stan_oop;
+    
+   
+    bmstu_pankratov[label="Pankratov"];
+    bmstu_tassov[label="Tassov"];
+    bmstu_gavrilova[label="Gavrilova"];
+
+    bmstu_math -> bmstu_pankratov;
+    bmstu_oop -> bmstu_tassov;
+    bmstu_db -> bmstu_gavrilova;
+
+   
+    msu_petrov;
+    msu_alexandrov;
+    msu_vasilyev;
+
+    msu_math -> msu_petrov;
+    msu_db -> msu_alexandrov;
+    msu_oop -> msu_vasilyev;
+
+   
+    hse_vladykin;
+    hse_freilehman;
+    hse_tihonova;
+
+    hse_math -> hse_vladykin;
+    hse_oop -> hse_freilehman;
+    hse_db -> hse_tihonova;
+
+   
+    mit_riels;
+    mit_lao;
+    mit_celman;
+
+    mit_db -> mit_riels;
+    mit_math -> mit_lao;
+    mit_oop -> mit_celman;
+
+    
+    har_smith;
+    har_maskin;
+    har_halison;
+
+    har_db -> har_smith;
+    har_math -> har_maskin;
+    har_oop -> har_halison;
+
+    stan_harber;
+    stan_king;
+    stan_gates;
+
+    stan_db -> stan_harber;
+    stan_math -> stan_king;
+    stan_oop -> stan_gates;
+
+    cam_hawkins;
+    cam_brown;
+    cam_bulloc;
+
+    cam_db -> cam_hawkins;
+    cam_math -> cam_brown;
+    cam_oop -> cam_bulloc;
+
+    ox_dale;
+    ox_forest;
+    ox_hunt;
+
+    ox_db -> ox_dale;
+    ox_math -> ox_forest;
+    ox_oop -> ox_hunt;
+
+    ww_mercer;
+    ww_morgan;
+    ww_riga;
+
+    ww_db -> ww_mercer;
+    ww_math -> ww_morgan;
+    ww_oop -> ww_riga;
+    
+
+    bmstu_pankratov_math_lection1_2019;
+    bmstu_tassov_oop_lection1_2019;
+    bmstu_gavrilova_db_lection1_2019;
+    bmstu_pankratov_math_lection2_2019;
+    bmstu_tassov_oop_lection2_2019;
+    bmstu_gavrilova_db_lection2_2019;
+    msu_alexandrov_db_lection1_2019;
+    msu_petrov_math_lection1_2019;
+    msu_vasilyev_oop_lection1_2019;
+
+    bmstu_pankratov -> bmstu_pankratov_math_lection1_2019;
+    bmstu_tassov -> bmstu_tassov_oop_lection1_2019;
+    bmstu_gavrilova -> bmstu_gavrilova_db_lection1_2019;
+    bmstu_pankratov -> bmstu_pankratov_math_lection2_2019;
+    bmstu_tassov -> bmstu_tassov_oop_lection2_2019;
+    bmstu_gavrilova -> bmstu_gavrilova_db_lection2_2019;
+    msu_alexandrov -> msu_alexandrov_db_lection1_2019;
+    msu_petrov -> msu_petrov_math_lection1_2019;
+    msu_vasilyev -> msu_vasilyev_oop_lection1_2019;
+    hse_vladykin_math_lection1_2019;
+    hse_vladykin -> hse_vladykin_math_lection1_2019;
+    hse_freilehman_oop_lection1_2019;
+    hse_freilehman -> hse_freilehman_oop_lection1_2019;
+    mit_lao_math_lection1_2019;
+    mit_lao -> mit_lao_math_lection1_2019;
+    har_smith_db_lection1_2019;
+    har_smith -> har_smith_db_lection1_2019;
+    har_maskin_math_lection1_2019;
+    har_halison_oop_lection1_2019;
+    har_halison -> har_halison_oop_lection1_2019;
+    stan_king_math_lection1_2019;
+    stan_king -> stan_king_math_lection1_2019;
+    har_maskin -> har_maskin_math_lection1_2019;
+    hse_tihonova_db_lection1_2019;
+    mit_riels_db_lection1_2019;
+    mit_celman_oop_lection1_2019;
+    stan_gates_oop_lection1_2019;
+    cam_hawkins_db_lection1_2019;
+    cam_brown_math_lection1_2019;
+    cam_bulloc_oop_lection1_2019;
+    ox_dale_db_lection1_2019;
+    hse_tihonova -> hse_tihonova_db_lection1_2019;
+    mit_riels -> mit_riels_db_lection1_2019;
+    mit_celman -> mit_celman_oop_lection1_2019;
+    stan_gates -> stan_gates_oop_lection1_2019;
+    cam_hawkins -> cam_hawkins_db_lection1_2019;
+    cam_brown -> cam_brown_math_lection1_2019;
+    cam_bulloc -> cam_bulloc_oop_lection1_2019;
+    ox_dale -> ox_dale_db_lection1_2019;
+    stan_harber_db_lection1_2019;
+    stan_harber -> stan_harber_db_lection1_2019;
+    ox_forest_math_lection1_2019;
+    ox_forest -> ox_forest_math_lection1_2019;
+    ox_hunt_oop_lection1_2019;
+    ox_hunt -> ox_hunt_oop_lection1_2019;
+    ww_mercer_db_lection1_2019;
+    ww_mercer -> ww_mercer_db_lection1_2019;
+    ww_morgan_math_lection1_2019;
+    ww_morgan -> ww_morgan_math_lection1_2019;
+    ww_riga_oop_lection1_2019;
+    ww_riga -> ww_riga_oop_lection1_2019;
+    
+    node [shape=box]
+    bmstu_pankratov_math_lection1_2019_status[label="status:complete"] 
+    bmstu_pankratov_math_lection1_2019_pages[label="pages:9"]          
+    bmstu_pankratov_math_lection1_2019_editor[label="editor:Alexeev"]  
+    bmstu_pankratov_math_lection1_2019_rating[label="rating:4.1"]      
+    bmstu_pankratov_math_lection1_2019_readtime[label="readtime:90"]   
+    bmstu_pankratov_math_lection1_2019_year[label="year:2019"] 
+    bmstu_pankratov_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    bmstu_pankratov_math_lection1_2019_language[label="language:russian"] 
+    
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_editor
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_pages
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_status
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_readtime
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_rating
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_year
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_maintheme
+    bmstu_pankratov_math_lection1_2019 -> bmstu_pankratov_math_lection1_2019_language
+
+    bmstu_tassov_oop_lection1_2019_status[label="status:complete"] 
+    bmstu_tassov_oop_lection1_2019_pages[label="pages:8"]          
+    bmstu_tassov_oop_lection1_2019_editor[label="editor:Alexeev"]  
+    bmstu_tassov_oop_lection1_2019_rating[label="rating:4.3"]      
+    bmstu_tassov_oop_lection1_2019_readtime[label="readtime:90"]    
+    bmstu_tassov_oop_lection1_2019_year[label="year:2019"] 
+    bmstu_tassov_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    bmstu_tassov_oop_lection1_2019_language[label="language:russian"] 
+    
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_editor
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_status
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_pages
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_readtime
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_rating
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_year
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_maintheme
+    bmstu_tassov_oop_lection1_2019 -> bmstu_tassov_oop_lection1_2019_language
+
+    
+    bmstu_gavrilova_db_lection1_2019_status[label="status:complete"] 
+    bmstu_gavrilova_db_lection1_2019_pages[label="pages:6"]          
+    bmstu_gavrilova_db_lection1_2019_editor[label="editor:Alexeev"]  
+    bmstu_gavrilova_db_lection1_2019_rating[label="rating:4.4"]      
+    bmstu_gavrilova_db_lection1_2019_readtime[label="readtime:90"]    
+    bmstu_gavrilova_db_lection1_2019_year[label="year:2019"] 
+    bmstu_gavrilova_db_lection1_2019_maintheme[label="maintheme:sql"] 
+    bmstu_gavrilova_db_lection1_2019_language[label="language:russian"] 
+
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_status
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_pages
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_editor
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_rating
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_readtime
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_year
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_maintheme
+    bmstu_gavrilova_db_lection1_2019 -> bmstu_gavrilova_db_lection1_2019_language
+
+    bmstu_pankratov_math_lection2_2019_status[label="status:complete"] 
+    bmstu_pankratov_math_lection2_2019_pages[label="pages:11"]          
+    bmstu_pankratov_math_lection2_2019_editor[label="editor:Alexeev"]  
+    bmstu_pankratov_math_lection2_2019_rating[label="rating:3.1"]      
+    bmstu_pankratov_math_lection2_2019_readtime[label="readtime:90"]   
+    bmstu_pankratov_math_lection2_2019_year[label="year:2019"] 
+    bmstu_pankratov_math_lection2_2019_maintheme[label="maintheme:limits"] 
+    bmstu_pankratov_math_lection2_2019_language[label="language:russian"] 
+    
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_editor
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_pages
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_status
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_readtime
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_rating
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_year
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_maintheme
+    bmstu_pankratov_math_lection2_2019 -> bmstu_pankratov_math_lection2_2019_language
+
+    bmstu_tassov_oop_lection2_2019_status[label="status:complete"] 
+    bmstu_tassov_oop_lection2_2019_pages[label="pages:8"]          
+    bmstu_tassov_oop_lection2_2019_editor[label="editor:Alexeev"]  
+    bmstu_tassov_oop_lection2_2019_rating[label="rating:4.0"]      
+    bmstu_tassov_oop_lection2_2019_readtime[label="readtime:100"]    
+    bmstu_tassov_oop_lection2_2019_year[label="year:2019"] 
+    bmstu_tassov_oop_lection2_2019_maintheme[label="maintheme:patterns"] 
+    bmstu_tassov_oop_lection2_2019_language[label="language:russian"] 
+    
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_editor
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_status
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_pages
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_readtime
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_rating
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_year
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_maintheme
+    bmstu_tassov_oop_lection2_2019 -> bmstu_tassov_oop_lection2_2019_language
+
+    
+    bmstu_gavrilova_db_lection2_2019_status[label="status:complete"] 
+    bmstu_gavrilova_db_lection2_2019_pages[label="pages:6"]          
+    bmstu_gavrilova_db_lection2_2019_editor[label="editor:Alexeev"]  
+    bmstu_gavrilova_db_lection2_2019_rating[label="rating:4.4"]      
+    bmstu_gavrilova_db_lection2_2019_readtime[label="readtime:90"]    
+    bmstu_gavrilova_db_lection2_2019_year[label="year:2019"] 
+    bmstu_gavrilova_db_lection2_2019_maintheme[label="maintheme:sql"] 
+    bmstu_gavrilova_db_lection2_2019_language[label="language:russian"] 
+
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_status
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_pages
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_editor
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_rating
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_readtime
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_year
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_maintheme
+    bmstu_gavrilova_db_lection2_2019 -> bmstu_gavrilova_db_lection2_2019_language
+
+   
+    msu_alexandrov_db_lection1_2019_status[label="status:complete"] 
+    msu_alexandrov_db_lection1_2019_pages[label="pages:6"]          
+    msu_alexandrov_db_lection1_2019_editor[label="editor:Frolov"]  
+    msu_alexandrov_db_lection1_2019_rating[label="rating:4.4"]      
+    msu_alexandrov_db_lection1_2019_readtime[label="readtime:90"]    
+    msu_alexandrov_db_lection1_2019_year[label="year:2019"] 
+    msu_alexandrov_db_lection1_2019_maintheme[label="maintheme:sql"] 
+    msu_alexandrov_db_lection1_2019_language[label="language:russian"] 
+
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_status
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_pages
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_editor
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_rating
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_readtime
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_year
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_maintheme
+    msu_alexandrov_db_lection1_2019 -> msu_alexandrov_db_lection1_2019_language
+
+        
+    msu_petrov_math_lection1_2019_status[label="status:complete"] 
+    msu_petrov_math_lection1_2019_pages[label="pages:11"]          
+    msu_petrov_math_lection1_2019_editor[label="editor:Frolov"]  
+    msu_petrov_math_lection1_2019_rating[label="rating:3.9"]      
+    msu_petrov_math_lection1_2019_readtime[label="readtime:90"]    
+    msu_petrov_math_lection1_2019_year[label="year:2019"] 
+    msu_petrov_math_lection1_2019_maintheme[label="maintheme:integral"] 
+    msu_petrov_math_lection1_2019_language[label="language:russian"] 
+
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_status
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_pages
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_editor
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_rating
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_readtime
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_year
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_maintheme
+    msu_petrov_math_lection1_2019 -> msu_petrov_math_lection1_2019_language
+
+    
+    msu_vasilyev_oop_lection1_2019_status[label="status:not complete"] 
+    msu_vasilyev_oop_lection1_2019_pages[label="pages:6"]          
+    msu_vasilyev_oop_lection1_2019_editor[label="editor:Frolov"]  
+    msu_vasilyev_oop_lection1_2019_rating[label="rating:3.8"]      
+    msu_vasilyev_oop_lection1_2019_readtime[label="readtime:90"]    
+    msu_vasilyev_oop_lection1_2019_year[label="year:2019"] 
+    msu_vasilyev_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    msu_vasilyev_oop_lection1_2019_language[label="language:russian"] 
+
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_status
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_pages
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_editor
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_rating
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_readtime
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_year
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_maintheme
+    msu_vasilyev_oop_lection1_2019 -> msu_vasilyev_oop_lection1_2019_language
+
+    hse_vladykin_math_lection1_2019_status[label="status:complete"] 
+    hse_vladykin_math_lection1_2019_pages[label="pages:8"]          
+    hse_vladykin_math_lection1_2019_editor[label="editor:Yanov"]  
+    hse_vladykin_math_lection1_2019_rating[label="rating:4.4"]      
+    hse_vladykin_math_lection1_2019_readtime[label="readtime:90"]    
+    hse_vladykin_math_lection1_2019_year[label="year:2019"] 
+    hse_vladykin_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    hse_vladykin_math_lection1_2019_language[label="language:english"] 
+
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_status
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_pages
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_editor
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_rating
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_readtime
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_year
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_maintheme
+    hse_vladykin_math_lection1_2019 -> hse_vladykin_math_lection1_2019_language
+    
+    hse_freilehman_oop_lection1_2019_status[label="status:complete"] 
+    hse_freilehman_oop_lection1_2019_pages[label="pages:8"]          
+    hse_freilehman_oop_lection1_2019_editor[label="editor:Yanov"]  
+    hse_freilehman_oop_lection1_2019_rating[label="rating:4.5"]      
+    hse_freilehman_oop_lection1_2019_readtime[label="readtime:90"]    
+    hse_freilehman_oop_lection1_2019_year[label="year:2019"] 
+    hse_freilehman_oop_lection1_2019_maintheme[label="maintheme:patterns"] 
+    hse_freilehman_oop_lection1_2019_language[label="language:english"] 
+
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_status
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_pages
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_editor
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_rating
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_readtime
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_year
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_maintheme
+    hse_freilehman_oop_lection1_2019 -> hse_freilehman_oop_lection1_2019_language
+
+    hse_tihonova_db_lection1_2019_status[label="status:complete"] 
+    hse_tihonova_db_lection1_2019_pages[label="pages:6"]          
+    hse_tihonova_db_lection1_2019_editor[label="editor:Yanov"]  
+    hse_tihonova_db_lection1_2019_rating[label="rating:4.2"]      
+    hse_tihonova_db_lection1_2019_readtime[label="readtime:90"]    
+    hse_tihonova_db_lection1_2019_year[label="year:2019"] 
+    hse_tihonova_db_lection1_2019_maintheme[label="maintheme:xml"] 
+    hse_tihonova_db_lection1_2019_language[label="language:english"] 
+
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_status
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_pages
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_editor
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_rating
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_readtime
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_year
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_maintheme
+    hse_tihonova_db_lection1_2019 -> hse_tihonova_db_lection1_2019_language
+    
+    mit_riels_db_lection1_2019_status[label="status:complete"] 
+    mit_riels_db_lection1_2019_pages[label="pages:11"]          
+    mit_riels_db_lection1_2019_editor[label="editor:Ford"]  
+    mit_riels_db_lection1_2019_rating[label="rating:4.9"]      
+    mit_riels_db_lection1_2019_readtime[label="readtime:90"]    
+    mit_riels_db_lection1_2019_year[label="year:2019"] 
+    mit_riels_db_lection1_2019_maintheme[label="maintheme:entity"] 
+    mit_riels_db_lection1_2019_language[label="language:english"] 
+
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_status
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_pages
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_editor
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_rating
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_readtime
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_year
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_maintheme
+    mit_riels_db_lection1_2019 -> mit_riels_db_lection1_2019_language
+
+    mit_lao_math_lection1_2019_status[label="status:complete"] 
+    mit_lao_math_lection1_2019_pages[label="pages:10"]          
+    mit_lao_math_lection1_2019_editor[label="editor:Ford"]  
+    mit_lao_math_lection1_2019_rating[label="rating:4.6"]      
+    mit_lao_math_lection1_2019_readtime[label="readtime:90"]    
+    mit_lao_math_lection1_2019_year[label="year:2019"] 
+    mit_lao_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    mit_lao_math_lection1_2019_language[label="language:english"] 
+
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_status
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_pages
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_editor
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_rating
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_readtime 
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_year
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_maintheme
+    mit_lao_math_lection1_2019 -> mit_lao_math_lection1_2019_language
+    
+    mit_celman_oop_lection1_2019_status[label="status:complete"] 
+    mit_celman_oop_lection1_2019_pages[label="pages:7"]          
+    mit_celman_oop_lection1_2019_editor[label="editor:Ford"]  
+    mit_celman_oop_lection1_2019_rating[label="rating:4.6"]      
+    mit_celman_oop_lection1_2019_readtime[label="readtime:90"]    
+    mit_celman_oop_lection1_2019_year[label="year:2019"] 
+    mit_celman_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    mit_celman_oop_lection1_2019_language[label="language:english"] 
+
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_status
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_pages
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_editor
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_rating
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_readtime
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_year
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_maintheme
+    mit_celman_oop_lection1_2019 -> mit_celman_oop_lection1_2019_language
+
+    har_smith_db_lection1_2019_status[label="status:complete"] 
+    har_smith_db_lection1_2019_pages[label="pages:7"]          
+    har_smith_db_lection1_2019_editor[label="editor:Freon"]  
+    har_smith_db_lection1_2019_rating[label="rating:4.2"]      
+    har_smith_db_lection1_2019_readtime[label="readtime:90"]    
+    har_smith_db_lection1_2019_year[label="year:2019"] 
+    har_smith_db_lection1_2019_maintheme[label="maintheme:entity"] 
+    har_smith_db_lection1_2019_language[label="language:english"] 
+
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_status
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_pages
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_editor
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_rating
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_readtime
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_year
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_maintheme
+    har_smith_db_lection1_2019 -> har_smith_db_lection1_2019_language
+    
+    har_maskin_math_lection1_2019_status[label="status:not complete"] 
+    har_maskin_math_lection1_2019_pages[label="pages:10"]          
+    har_maskin_math_lection1_2019_editor[label="editor:Freon"]  
+    har_maskin_math_lection1_2019_rating[label="rating:4.4"]      
+    har_maskin_math_lection1_2019_readtime[label="readtime:90"]    
+    har_maskin_math_lection1_2019_year[label="year:2019"] 
+    har_maskin_math_lection1_2019_maintheme[label="maintheme:integral"] 
+    har_maskin_math_lection1_2019_language[label="language:english"] 
+
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_status
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_pages
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_editor
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_rating
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_readtime
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_year
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_maintheme
+    har_maskin_math_lection1_2019 -> har_maskin_math_lection1_2019_language
+   
+    
+    har_halison_oop_lection1_2019_status[label="status:complete"] 
+    har_halison_oop_lection1_2019_pages[label="pages:10"]          
+    har_halison_oop_lection1_2019_editor[label="editor:Freon"]  
+    har_halison_oop_lection1_2019_rating[label="rating:3.9"]      
+    har_halison_oop_lection1_2019_readtime[label="readtime:120"]    
+    har_halison_oop_lection1_2019_year[label="year:2019"] 
+    har_halison_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    har_halison_oop_lection1_2019_language[label="language:english"] 
+
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_status
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_pages
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_editor
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_rating
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_readtime
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_year
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_maintheme
+    har_halison_oop_lection1_2019 -> har_halison_oop_lection1_2019_language
+
+    stan_harber_db_lection1_2019_status[label="status:complete"] 
+    stan_harber_db_lection1_2019_pages[label="pages:8"]          
+    stan_harber_db_lection1_2019_editor[label="editor:Dale"]  
+    stan_harber_db_lection1_2019_rating[label="rating:3.3"]      
+    stan_harber_db_lection1_2019_readtime[label="readtime:90"]    
+    stan_harber_db_lection1_2019_year[label="year:2019"] 
+    stan_harber_db_lection1_2019_maintheme[label="maintheme:entity"] 
+    stan_harber_db_lection1_2019_language[label="language:english"] 
+
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_status
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_pages
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_editor
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_rating
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_readtime 
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_year
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_maintheme
+    stan_harber_db_lection1_2019 -> stan_harber_db_lection1_2019_language
+    
+    stan_king_math_lection1_2019_status[label="status:complete"] 
+    stan_king_math_lection1_2019_pages[label="pages:9"]          
+    stan_king_math_lection1_2019_editor[label="editor:Dale"]  
+    stan_king_math_lection1_2019_rating[label="rating:3.8"]      
+    stan_king_math_lection1_2019_readtime[label="readtime:90"]    
+    stan_king_math_lection1_2019_year[label="year:2019"] 
+    stan_king_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    stan_king_math_lection1_2019_language[label="language:english"] 
+
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_status
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_pages
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_editor
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_rating
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_readtime
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_year
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_maintheme
+    stan_king_math_lection1_2019 -> stan_king_math_lection1_2019_language
+   
+    stan_gates_oop_lection1_2019_status[label="status:complete"] 
+    stan_gates_oop_lection1_2019_pages[label="pages:13"]          
+    stan_gates_oop_lection1_2019_editor[label="editor:Dale"]  
+    stan_gates_oop_lection1_2019_rating[label="rating:3.3"]      
+    stan_gates_oop_lection1_2019_readtime[label="readtime:90"]    
+    stan_gates_oop_lection1_2019_year[label="year:2019"] 
+    stan_gates_oop_lection1_2019_maintheme[label="maintheme:classes"] 
+    stan_gates_oop_lection1_2019_language[label="language:english"] 
+
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_status
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_pages
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_editor
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_rating
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_readtime
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_year
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_maintheme
+    stan_gates_oop_lection1_2019 -> stan_gates_oop_lection1_2019_language
+   
+    cam_hawkins_db_lection1_2019_status[label="status:complete"] 
+    cam_hawkins_db_lection1_2019_pages[label="pages:11"]          
+    cam_hawkins_db_lection1_2019_editor[label="editor:Law"]  
+    cam_hawkins_db_lection1_2019_rating[label="rating:3.5"]      
+    cam_hawkins_db_lection1_2019_readtime[label="readtime:90"]    
+    cam_hawkins_db_lection1_2019_year[label="year:2019"] 
+    cam_hawkins_db_lection1_2019_maintheme[label="maintheme:entity"] 
+    cam_hawkins_db_lection1_2019_language[label="language:english"] 
+
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_status
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_pages
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_editor
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_rating
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_readtime
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_year
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_maintheme
+    cam_hawkins_db_lection1_2019 -> cam_hawkins_db_lection1_2019_language
+    
+    cam_brown_math_lection1_2019_status[label="status:not complete"] 
+    cam_brown_math_lection1_2019_pages[label="pages:6"]          
+    cam_brown_math_lection1_2019_editor[label="editor:Law"]  
+    cam_brown_math_lection1_2019_rating[label="rating:3.7"]      
+    cam_brown_math_lection1_2019_readtime[label="readtime:50"]    
+    cam_brown_math_lection1_2019_year[label="year:2019"] 
+    cam_brown_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    cam_brown_math_lection1_2019_language[label="language:english"] 
+
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_status
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_pages
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_editor
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_rating
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_readtime
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_year
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_maintheme
+    cam_brown_math_lection1_2019 -> cam_brown_math_lection1_2019_language
+    
+    cam_bulloc_oop_lection1_2019_status[label="status:complete"] 
+    cam_bulloc_oop_lection1_2019_pages[label="pages:10"]          
+    cam_bulloc_oop_lection1_2019_editor[label="editor:Law"]  
+    cam_bulloc_oop_lection1_2019_rating[label="rating:4.6"]      
+    cam_bulloc_oop_lection1_2019_readtime[label="readtime:90"]    
+    cam_bulloc_oop_lection1_2019_year[label="year:2019"] 
+    cam_bulloc_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    cam_bulloc_oop_lection1_2019_language[label="language:english"] 
+
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_status
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_pages
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_editor
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_rating
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_readtime
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_year
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_maintheme
+    cam_bulloc_oop_lection1_2019 -> cam_bulloc_oop_lection1_2019_language
+    
+    ox_dale_db_lection1_2019_status[label="status:complete"] 
+    ox_dale_db_lection1_2019_pages[label="pages:8"]          
+    ox_dale_db_lection1_2019_editor[label="editor:Ace"]  
+    ox_dale_db_lection1_2019_rating[label="rating:4.6"]      
+    ox_dale_db_lection1_2019_readtime[label="readtime:90"]    
+    ox_dale_db_lection1_2019_year[label="year:2019"] 
+    ox_dale_db_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    ox_dale_db_lection1_2019_language[label="language:english"] 
+
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_status
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_pages
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_editor
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_rating
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_readtime
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_year
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_maintheme
+    ox_dale_db_lection1_2019 -> ox_dale_db_lection1_2019_language
+  
+    ox_forest_math_lection1_2019_status[label="status:complete"] 
+    ox_forest_math_lection1_2019_pages[label="pages:8"]          
+    ox_forest_math_lection1_2019_editor[label="editor:Ace"]  
+    ox_forest_math_lection1_2019_rating[label="rating:4.9"]      
+    ox_forest_math_lection1_2019_readtime[label="readtime:90"]    
+    ox_forest_math_lection1_2019_year[label="year:2019"] 
+    ox_forest_math_lection1_2019_maintheme[label="maintheme:limits"] 
+    ox_forest_math_lection1_2019_language[label="language:english"] 
+
+    
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_status
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_pages
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_editor
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_rating
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_readtime
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_year
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_maintheme
+    ox_forest_math_lection1_2019 -> ox_forest_math_lection1_2019_language
+   
+    ox_hunt_oop_lection1_2019_status[label="status:complete"] 
+    ox_hunt_oop_lection1_2019_pages[label="pages:9"]          
+    ox_hunt_oop_lection1_2019_editor[label="editor:Ace"]  
+    ox_hunt_oop_lection1_2019_rating[label="rating:4.7"]      
+    ox_hunt_oop_lection1_2019_readtime[label="readtime:90"]    
+    ox_hunt_oop_lection1_2019_year[label="year:2019"] 
+    ox_hunt_oop_lection1_2019_maintheme[label="maintheme:procedure programming"] 
+    ox_hunt_oop_lection1_2019_language[label="language:english"] 
+
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_status
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_pages
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_editor
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_rating
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_readtime
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_year
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_maintheme
+    ox_hunt_oop_lection1_2019 -> ox_hunt_oop_lection1_2019_language
+   
+    ww_mercer_db_lection1_2019_status[label="status:complete"] 
+    ww_mercer_db_lection1_2019_pages[label="pages:6"]          
+    ww_mercer_db_lection1_2019_editor[label="editor:Baker"]  
+    ww_mercer_db_lection1_2019_rating[label="rating:4.7"]      
+    ww_mercer_db_lection1_2019_readtime[label="readtime:60"]    
+    ww_mercer_db_lection1_2019_year[label="year:2019"] 
+    ww_mercer_db_lection1_2019_maintheme[label="maintheme:entity"] 
+    ww_mercer_db_lection1_2019_language[label="language:english"] 
+
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_status
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_pages
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_editor
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_rating
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_readtime
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_year
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_maintheme
+    ww_mercer_db_lection1_2019 -> ww_mercer_db_lection1_2019_language
+    
+    ww_morgan_math_lection1_2019_status[label="status:complete"] 
+    ww_morgan_math_lection1_2019_pages[label="pages:9"]          
+    ww_morgan_math_lection1_2019_editor[label="editor:Baker"]  
+    ww_morgan_math_lection1_2019_rating[label="rating:4.5"]      
+    ww_morgan_math_lection1_2019_readtime[label="readtime:90"]    
+    ww_morgan_math_lection1_2019_year[label="year:2019"] 
+    ww_morgan_math_lection1_2019_maintheme[label="maintheme:integral"] 
+    ww_morgan_math_lection1_2019_language[label="language:english"] 
+
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_status
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_pages
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_editor
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_rating
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_readtime
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_year
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_maintheme
+    ww_morgan_math_lection1_2019 -> ww_morgan_math_lection1_2019_language
+   
+    ww_riga_oop_lection1_2019_status[label="status:complete"] 
+    ww_riga_oop_lection1_2019_pages[label="pages:10"]          
+    ww_riga_oop_lection1_2019_editor[label="editor:Baker"]  
+    ww_riga_oop_lection1_2019_rating[label="rating:4.1"]      
+    ww_riga_oop_lection1_2019_readtime[label="readtime:90"]    
+    ww_riga_oop_lection1_2019_year[label="year:2019"] 
+    ww_riga_oop_lection1_2019_maintheme[label="maintheme:classes"] 
+    ww_riga_oop_lection1_2019_language[label="language:english"] 
+
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_status
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_pages
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_editor
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_rating
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_readtime 
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_year
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_maintheme
+    ww_riga_oop_lection1_2019 -> ww_riga_oop_lection1_2019_language
+        
+}
