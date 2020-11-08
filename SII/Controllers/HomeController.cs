@@ -13,11 +13,159 @@ namespace SII.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationContext _db;
 
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationContext db)
         {
             _logger = logger;
+            _db = db;
+        }
+
+        [HttpGet("collaborationfilter/{id}")]
+        public IActionResult Collaboration(int id)
+        {
+            User user = _db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            List<User> users = _db.Users.Where(u => u.Id != id).ToList();
+
+            List<UserCoeff> userCoeffs = new List<UserCoeff>();
+            foreach (User u in users)
+            {
+                List<UserMark> usermarks1 = _db.UserMarks.Where(um => um.UserId == user.Id).ToList();
+                List<UserMark> usermarks2 = _db.UserMarks.Where(um => um.UserId == u.Id).ToList();
+
+                int lectionsNumber = _db.Lections.Count();
+
+                List<double> list1 = new double[lectionsNumber].ToList();
+                List<double> list2 = new double[lectionsNumber].ToList();
+
+                foreach (UserMark um in usermarks1)
+                {
+                    list1[um.LectionId] = um.Mark;
+                }
+                foreach (UserMark um in usermarks2)
+                {
+                    list2[um.LectionId] = um.Mark;
+                }
+
+                while (true)
+                {
+
+                    int index1 = list1.IndexOf(0);
+                    if (index1 != -1)
+                    {
+                        list1.RemoveAt(index1);
+                        list2.RemoveAt(index1);
+                    }
+                    int index2 = list2.IndexOf(0);
+                    if (index2 != -1)
+                    {
+                        list1.RemoveAt(index2);
+                        list2.RemoveAt(index2);
+                    }
+                    if (index1 == -1 && index2 == -1)
+                    {
+                        break;
+                    }
+                }
+                double coeff = CollaborationFilter.Correlation(list1.ToArray(), list2.ToArray());
+                userCoeffs.Add(new UserCoeff() { Coeff = coeff, UserId = u.Id });
+            }
+
+
+            userCoeffs = userCoeffs.Take(5).OrderByDescending(u => u.Coeff).ToList();
+
+            List<double> reccomend = new double[_db.Lections.Count()].ToList();
+
+            foreach (UserCoeff uc in userCoeffs)
+            {
+                var userMarks = _db.UserMarks.Where(um => um.UserId == uc.UserId);
+                foreach (var mark in userMarks)
+                {
+                    reccomend[mark.LectionId-1] += mark.Mark * uc.Coeff;
+                }
+            }
+
+            List<LectionCoeff> lc = new List<LectionCoeff>();
+            List<int> alreadyMarked = _db.UserMarks.Where(um => um.UserId == id).Select(um => um.LectionId).ToList();
+            for(int i = 0; i < reccomend.Count; i++)
+            {
+                if(reccomend[i]>0 && alreadyMarked.IndexOf(i+1)==-1)
+                {
+                    lc.Add(new LectionCoeff() { Id = i+1, Coeff = reccomend[i] });
+                }
+            }
+
+            return Ok(lc.OrderByDescending(o => o.Coeff));
+        }
+
+        [HttpGet("collabuser/{id1}/{id2}")]
+        public IActionResult corruser(int id1, int id2)
+        {
+            User user1 = _db.Users.FirstOrDefault(u => u.Id == id1);
+            User user2 = _db.Users.FirstOrDefault(u => u.Id == id2);
+            if (user1 == null || user2 == null)
+            {
+                return NotFound();
+            }
+
+            List<UserMark> usermarks1 = _db.UserMarks.Where(um => um.UserId == user1.Id).ToList();
+            List<UserMark> usermarks2 = _db.UserMarks.Where(um => um.UserId == user2.Id).ToList();
+
+            int lectionsNumber = _db.Lections.Count();
+
+            List<double> list1 = new double[lectionsNumber].ToList();
+            List<double> list2 = new double[lectionsNumber].ToList();
+
+            foreach(UserMark um in usermarks1)
+            {
+                list1[um.LectionId] = um.Mark;
+            }
+            foreach (UserMark um in usermarks2)
+            {
+                list2[um.LectionId] = um.Mark;
+            }
+
+            while (true)
+            {
+
+                int index1 = list1.IndexOf(0);
+                if (index1 != -1)
+                {
+                    list1.RemoveAt(index1);
+                    list2.RemoveAt(index1);
+                }
+                int index2 = list2.IndexOf(0);
+                if (index2 != -1)
+                {
+                    list1.RemoveAt(index2);
+                    list2.RemoveAt(index2);
+                }
+                if (index1 == -1 && index2 == -1)
+                {
+                    break;
+                }
+            }
+
+            double coef = CollaborationFilter.Correlation(list1.ToArray(), list2.ToArray());
+
+            return Ok(coef);
+        }
+
+        [HttpGet("usermarks/{id}")]
+        public IActionResult GetUserMarks(int id)
+        {
+            User user = _db.Users.FirstOrDefault(u => u.Id == id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            List<UserMark> list = _db.UserMarks.Where(um => um.UserId == user.Id).ToList();
+            return Ok(list);
         }
 
         [HttpGet("initdb")]
@@ -25,10 +173,12 @@ namespace SII.Controllers
         {
             Random rnd = new Random();
             List<Lection> lections = new List<Lection>();
+            int i = 1;
             using (StreamReader sr = new StreamReader("attrib.txt"))
             {
+                //init lections
                 string input;
-                int i = 1;
+                
                 while ((input = sr.ReadLine())!=null)
                 {
                     var args = input.Split('_');
@@ -47,8 +197,73 @@ namespace SII.Controllers
                     i++;
                     lections.Add(lection);
                 }
-
             }
+            foreach(Lection l in lections)
+            {
+                if(_db.Lections.FirstOrDefault(lect => lect.Id == l.Id)==null)
+                {
+                    _db.Lections.Add(l);
+                }
+            }
+
+            //init users
+            for(int j = 1; j<=5; j++)
+            {
+                User user = new User() { Id = j, Name = "User" + j };
+                if (_db.Users.FirstOrDefault(u => u.Id == user.Id) == null)
+                {
+                    _db.Users.Add(user);
+                }
+                
+            }
+
+            //init usermarks
+            List<UserMark> userMarks = new List<UserMark>();
+            userMarks.Add(new UserMark() { Id = 1, UserId = 1, LectionId = 1, Mark = 4});
+            userMarks.Add(new UserMark() { Id = 2, UserId = 1, LectionId = 2, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 3, UserId = 1, LectionId = 3, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 4, UserId = 1, LectionId = 5, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 22, UserId = 1, LectionId = 6, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 24, UserId = 1, LectionId = 9, Mark = 4 });
+
+            userMarks.Add(new UserMark() { Id = 5, UserId = 2, LectionId = 2, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 6, UserId = 2, LectionId = 3, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 7, UserId = 2, LectionId = 4, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 8, UserId = 2, LectionId = 5, Mark = 5 });
+
+            userMarks.Add(new UserMark() { Id = 9, UserId = 3, LectionId = 2, Mark = 2 });
+            userMarks.Add(new UserMark() { Id = 10, UserId = 3, LectionId = 3, Mark = 3 });
+            userMarks.Add(new UserMark() { Id = 11, UserId = 3, LectionId = 4, Mark = 2 });
+            userMarks.Add(new UserMark() { Id = 12, UserId = 3, LectionId = 5, Mark = 1 });
+
+            userMarks.Add(new UserMark() { Id = 13, UserId = 4, LectionId = 1, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 14, UserId = 4, LectionId = 2, Mark = 3 });
+            userMarks.Add(new UserMark() { Id = 15, UserId = 4, LectionId = 3, Mark = 2 });
+            userMarks.Add(new UserMark() { Id = 16, UserId = 4, LectionId = 4, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 17, UserId = 4, LectionId = 5, Mark = 3 });
+
+            userMarks.Add(new UserMark() { Id = 18, UserId = 5, LectionId = 1, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 19, UserId = 5, LectionId = 2, Mark = 5 });
+            userMarks.Add(new UserMark() { Id = 20, UserId = 5, LectionId = 3, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 21, UserId = 5, LectionId = 5, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 26, UserId = 5, LectionId = 6, Mark = 3 });
+            userMarks.Add(new UserMark() { Id = 27, UserId = 5, LectionId = 7, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 28, UserId = 5, LectionId = 9, Mark = 4 });
+            userMarks.Add(new UserMark() { Id = 29, UserId = 5, LectionId = 10, Mark = 5 });
+
+
+
+
+            foreach (UserMark um in userMarks)
+            {
+                if (_db.UserMarks.FirstOrDefault(umark => umark.Id == um.Id) == null)
+                {
+                    _db.UserMarks.Add(um);
+                }
+            }
+
+            _db.SaveChanges();
+
             return Ok(lections);
         }
 

@@ -10,7 +10,8 @@ namespace SII
     {
         [Key]
         public int Id { get; set; }
-        public Lection LinkedLection { get; set; }
-        public User LinkedUser { get; set; }
+        public int LectionId { get; set; }
+        public int UserId { get; set; }
+        public double Mark { get; set; }
     }
 }

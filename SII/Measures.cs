@@ -12,6 +12,7 @@ namespace SII
         const double ThemesCountWeight = 2;
         const double YearWeight = 1;
 
+
         public double EuqlidDistance(Lection lection1, Lection lection2)
         {
             double distance = 0;

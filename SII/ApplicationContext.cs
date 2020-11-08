@@ -8,9 +8,9 @@ namespace SII
 {
     public class ApplicationContext : DbContext
     {
-        DbSet<Lection> Lections { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<UserMark> UserMarks { get; set; }
+        public DbSet<Lection> Lections { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserMark> UserMarks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=application.db");
