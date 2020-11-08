@@ -9,5 +9,7 @@ namespace SII
     {
         public int Id { get; set; }
         public double Coeff { get; set; }
+
+        public int UserId { get; set; }
     }
 }

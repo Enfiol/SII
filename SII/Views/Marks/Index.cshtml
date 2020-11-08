@@ -1,0 +1,60 @@
+﻿@model List<SII.UserMark>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<h1>Marks</h1>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>UserId</th>
+        <th>LectionId</th>
+        <th>Mark</th>
+        <th></th>
+    </tr>
+    @foreach (SII.UserMark um in Model)
+    {
+        <tr>
+            <td>@um.Id</td>
+            <td>@um.UserId</td>
+            <td>@um.LectionId</td>
+            <td>@um.Mark</td>
+            <td>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@um.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<form method="post">
+    <fieldset>
+        <legend>Add mark</legend>
+        <div>
+            <label for="Id">Id::</label>
+            <input type="text" name="Id" value="" />
+        </div>
+        <div>
+            <label for="UserId">UserId:</label>
+            <input type="text" name="UserId" value="" />
+        </div>
+        <div>
+            <label for="LectionId">LectionId:</label>
+            <input type="text" name="LectionId" value="" />
+        </div>
+        <div>
+            <label for="Mark">Mark:</label>
+            <input type="text" name="Mark" value="" />
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit" class="submit" />
+        </div>
+    </fieldset>
+</form>

@@ -1,0 +1,57 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="ru-RU" lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <!--меню-->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+           
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-controller="Users" asp-action="Index" class="navbar-brand">Users</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-controller="Lections" asp-action="Index" class="navbar-brand">Lections</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-controller="Marks" asp-action="Index" class="navbar-brand">Marks</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-controller="Recommendation" asp-action="Index" class="navbar-brand">Recommendation</a>
+                        </li>
+                    </ul>
+        </div>
+    </nav>
+    <!--основной контент-->
+    <div class="container body-content">
+
+        <p>
+            <div id="alert-dash" class="hidden" role="alert"></div>
+        </p>
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>© 2020 - SII</p>
+        </footer>
+    </div>
+</body>
+</html>

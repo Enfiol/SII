@@ -8,10 +8,7 @@
     <PackageReference Include="GraphViz4Net" Version="3.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
 
