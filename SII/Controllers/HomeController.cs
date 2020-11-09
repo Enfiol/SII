@@ -154,7 +154,7 @@ namespace SII.Controllers
 
             _db.SaveChanges();
 
-            return Ok(lections);
+            return View();
         }
 
 
