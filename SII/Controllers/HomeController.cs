@@ -45,41 +45,59 @@ namespace SII.Controllers
         {
             Random rnd = new Random();
             List<Lection> lections = new List<Lection>();
-            int i = 1;
-            using (StreamReader sr = new StreamReader("attrib.txt"))
-            {
-                //init lections
-                string input;
+            //int i = 1;
+            //using (StreamReader sr = new StreamReader("attrib.txt"))
+            //{
+            //    //init lections
+            //    string input;
                 
-                while ((input = sr.ReadLine())!=null)
-                {
-                    var args = input.Split('_');
-                    var status = args[5].Split('"', ':')[2];
-                    var pages = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var editor = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var rating = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var readTime = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var year = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var maintheme = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
-                    var language = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //    while ((input = sr.ReadLine())!=null)
+            //    {
+            //        var args = input.Split('_');
+            //        var status = args[5].Split('"', ':')[2];
+            //        var pages = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var editor = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var rating = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var readTime = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var year = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var maintheme = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
+            //        var language = sr.ReadLine().Split('_')[5].Split('"', ':')[2];
                     
-                    Lection lection = new Lection() { University = args[0], Author = args[1], Subject = args[2], Title = args[3], Language = language, Pages = int.Parse(pages), Rating = double.Parse(rating), Year = int.Parse(year) };
-                    lection.Id = i;
-                    lection.ThemesCount = rnd.Next(1, 4);
-                    i++;
-                    lections.Add(lection);
-                }
-            }
-            foreach(Lection l in lections)
+            //        Lection lection = new Lection() { University = args[0], Author = args[1], Subject = args[2], Title = args[3], Language = language, Pages = int.Parse(pages), Rating = double.Parse(rating), Year = int.Parse(year) };
+            //        lection.Id = i;
+            //        lection.ThemesCount = rnd.Next(1, 4);
+            //        i++;
+            //        lections.Add(lection);
+            //    }
+            //}
+           
+
+            for(int i = 0; i < 15; i++)
             {
-                if(_db.Lections.FirstOrDefault(lect => lect.Id == l.Id)==null)
+                lections.Add(new Lection()
+                {
+                    Id = i + 1,
+                    Author = "Author" + rnd.Next(4),
+                    Language = "English",
+                    Pages = rnd.Next(5, 16),
+                    Rating = rnd.Next(5) + rnd.NextDouble(),
+                    Subject = "Subject" + rnd.Next(4),
+                    ThemesCount = rnd.Next(1, 4),
+                    Title = "Title" + i,
+                    University = "University" + rnd.Next(4),
+                    Year = DateTime.Now.Year - rnd.Next(3)
+                });
+            }
+            foreach (Lection l in lections)
+            {
+                if (_db.Lections.FirstOrDefault(lect => lect.Id == l.Id) == null)
                 {
                     _db.Lections.Add(l);
                 }
             }
 
             //init users
-            for(int j = 1; j<=5; j++)
+            for (int j = 1; j<=5; j++)
             {
                 User user = new User() { Id = j, Name = "User" + j };
                 if (_db.Users.FirstOrDefault(u => u.Id == user.Id) == null)
