@@ -80,7 +80,7 @@ namespace SII.Controllers
                     Author = "Author" + rnd.Next(4),
                     Language = "English",
                     Pages = rnd.Next(5, 16),
-                    Rating = rnd.Next(5) + rnd.NextDouble(),
+                    Rating = rnd.Next(1,5) + Math.Round(rnd.NextDouble(),2),
                     Subject = "Subject" + rnd.Next(4),
                     ThemesCount = rnd.Next(1, 4),
                     Title = "Title" + i,
