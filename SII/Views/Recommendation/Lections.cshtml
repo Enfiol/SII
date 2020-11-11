@@ -1,0 +1,52 @@
+﻿@model List<SII.Lection>
+@{
+    ViewData["Title"] = "Lections";
+    Layout = "Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<a class="btn btn-sm btn-primary" asp-action="Index">Пользователи</a>
+<a class="btn btn-sm btn-primary" asp-action="Lections">Лекции</a>
+<h1>Lections</h1>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>University</th>
+        <th>Author</th>
+        <th>Subject</th>
+        <th>Language</th>
+        <th>Rating</th>
+        <th>Pages</th>
+        <th>Year</th>
+        <th>ThemesCount</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (SII.Lection l in Model)
+    {
+        <form>
+            <tr>
+                <td>@l.Id</td>
+                <td>@l.Title</td>
+                <td>@l.University</td>
+                <td>@l.Author</td>
+                <td>@l.Subject</td>
+                <td>@l.Language</td>
+                <td>@l.Rating</td>
+                <td>@l.Pages</td>
+                <td>@l.Year</td>
+                <td>@l.ThemesCount</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="SimilarLections" asp-route-id="@l.Id">Показать похожие лекции</a>
+                </td>
+
+            </tr>
+        </form>
+    }
+</table>

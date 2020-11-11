@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SII
 {
-    public class Measures
+    public static class Measures
     {
         const double RatingWeight = 1.5;
         const double PagesWeight = 0.5;
@@ -13,7 +13,7 @@ namespace SII
         const double YearWeight = 1;
 
 
-        public double EuqlidDistance(Lection lection1, Lection lection2)
+        public static double EuqlidDistance(Lection lection1, Lection lection2)
         {
             double distance = 0;
 
@@ -25,7 +25,7 @@ namespace SII
             return distance;
         }
 
-        public double ManhattanDistance(Lection lection1, Lection lection2)
+        public static double ManhattanDistance(Lection lection1, Lection lection2)
         {
             double distance = 0;
 
@@ -37,7 +37,7 @@ namespace SII
             return distance;
         }
 
-        public double CorrelationDistance(Lection lection1, Lection lection2)
+        public static double CorrelationDistance(Lection lection1, Lection lection2)
         {
             var values1 = new double[] { DateTime.Now.Year - lection1.Year, lection1.Rating, lection1.ThemesCount, lection1.Pages };
             var values2 = new double[] { DateTime.Now.Year - lection2.Year, lection2.Rating, lection2.ThemesCount, lection2.Pages };
@@ -58,7 +58,7 @@ namespace SII
             return result;
         }
 
-        public int EqualValues(Lection lection1, Lection lection2)
+        public static int EqualValues(Lection lection1, Lection lection2)
         {
             int result = 0;
 

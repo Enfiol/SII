@@ -175,5 +175,49 @@ namespace SII.Controllers
 
             return View(userCoeffs.OrderByDescending(c => c.Coeff).ToList());
         }
+
+        [HttpGet("similarlections/{id}")]
+        public IActionResult SimilarLections(int id)
+        {
+            Lection lection = _db.Lections.FirstOrDefault(l => l.Id == id);
+            if(lection == null)
+            {
+                return NotFound();
+            }
+
+            List<double> coeffsList = new double[_db.Lections.Count()].ToList();
+            List<Lection> lections = _db.Lections.Where(l => l.Id != id).ToList();
+
+            foreach(Lection l in lections)
+            {
+                coeffsList[l.Id - 1] = Measures.CorrelationDistance(lection, l)*Measures.EqualValues(lection,l);
+            }
+
+
+            List<LectionCoeff> lc = new List<LectionCoeff>();
+            for(int i = 0; i<coeffsList.Count; i++)
+            {
+                if(coeffsList[i]>0)
+                {
+                    lc.Add(new LectionCoeff { Id = i + 1, Coeff = coeffsList[i] });
+                }
+            }
+
+            return View(lc.OrderByDescending(c => c.Coeff).ToList());
+        }
+
+        [HttpGet("lections")]
+        public IActionResult Lections()
+        {
+            var lections = _db.Lections.ToList();
+            return View(lections);
+        }
+
+        //[HttpGet("similarlections")]
+        //public IActionResult SimilarLections()
+        //{
+           
+        //    return View();
+        //}
     }
 }
