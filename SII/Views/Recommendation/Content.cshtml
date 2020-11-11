@@ -1,0 +1,30 @@
+﻿@model List<SII.LectionCoeff>
+@{
+    ViewData["Title"] = "Similar Lections";
+    Layout = "Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<h1>Similar Lections</h1>
+
+<table>
+    <tr>
+        <th>LectionId</th>
+        <th>Reccomendation Coefficent</th>
+        <th></th>
+    </tr>
+    @foreach (SII.LectionCoeff l in Model)
+    {
+    <tr>
+        <td>@l.Id</td>
+        <td>@l.Coeff</td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="DontShowAgainContent" asp-route-LectionId="@l.Id" asp-route-id="@l.UserId">Не интересно</a>
+        </td>
+    </tr>
+    }
+</table>

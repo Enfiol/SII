@@ -15,6 +15,7 @@
 
 <table>
     <tr>
+        <th></th>
         <th>Id</th>
         <th>Title</th>
         <th>University</th>
@@ -28,10 +29,12 @@
         <th></th>
         <th></th>
     </tr>
-    @foreach (SII.Lection l in Model)
-    {
-        <form>
+    <form method="post" action="SimilarLections">
+        @foreach (SII.Lection l in Model)
+        {
+
             <tr>
+                <td><input type="checkbox" name="AreChecked" value="@l.Id" /></td>
                 <td>@l.Id</td>
                 <td>@l.Title</td>
                 <td>@l.University</td>
@@ -47,6 +50,8 @@
                 </td>
 
             </tr>
-        </form>
-    }
-</table>
+
+        }
+        <input type="submit" class="btn btn-sm btn-primary" value="Показать похожие лекции на основе выбраных">
+    </form>
+    </table>

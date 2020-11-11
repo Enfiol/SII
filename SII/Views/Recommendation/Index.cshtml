@@ -19,18 +19,22 @@
         <th>Name</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (SII.User u in Model)
     {
-        <tr>
-            <td>@u.Id</td>
-            <td>@u.Name</td>
-            <td>
-                <a class="btn btn-sm btn-primary" asp-action="Correlation" asp-route-id="@u.Id">Пользователи с похожими вкусами</a>
-            </td>
-            <td>
-                <a class="btn btn-sm btn-primary" asp-action="Collaboration" asp-route-id="@u.Id">Рекоммендации</a>
-            </td>
-        </tr>
+    <tr>
+        <td>@u.Id</td>
+        <td>@u.Name</td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="Correlation" asp-route-id="@u.Id">Пользователи с похожими вкусами</a>
+        </td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="Collaboration" asp-route-id="@u.Id">Рекоммендации на основе похожих пользователей</a>
+        </td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="Content" asp-route-id="@u.Id">Рекоммендации на основе оцененных лекций</a>
+        </td>
+    </tr>
     }
 </table>

@@ -117,6 +117,14 @@ namespace SII.Controllers
             _db.SaveChanges();
             return RedirectToAction("Collaboration", new { id = userId });
         }
+        [HttpGet("dontshowagaincontent/{userId}")]
+        public IActionResult DontShowAgainContent(int userId, int lectionId)
+        {
+            UserLection ul = new UserLection() { LectionId = lectionId, UserId = userId };
+            _db.UserLections.Add(ul);
+            _db.SaveChanges();
+            return RedirectToAction("Content", new { id = userId });
+        }
 
         [HttpGet("correlation/{id}")]
         public IActionResult Correlation(int id)
@@ -176,6 +184,14 @@ namespace SII.Controllers
             return View(userCoeffs.OrderByDescending(c => c.Coeff).ToList());
         }
 
+
+        [HttpGet("lections")]
+        public IActionResult Lections()
+        {
+            var lections = _db.Lections.ToList();
+            return View(lections);
+        }
+
         [HttpGet("similarlections/{id}")]
         public IActionResult SimilarLections(int id)
         {
@@ -206,18 +222,136 @@ namespace SII.Controllers
             return View(lc.OrderByDescending(c => c.Coeff).ToList());
         }
 
-        [HttpGet("lections")]
-        public IActionResult Lections()
+
+        
+        [HttpPost("similarlections")]
+        public IActionResult SimilarLections(CheckboxDTO check)
         {
-            var lections = _db.Lections.ToList();
-            return View(lections);
+            if (check.AreChecked == null)
+            {
+                return View(new List<LectionCoeff>());
+            }
+            List<Lection> lections = new List<Lection>();
+            foreach(int i in check.AreChecked)
+            {
+                lections.Add(_db.Lections.FirstOrDefault(l => l.Id == i));
+            }
+
+            if (lections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+            double[,] coeffsMatrix = new double[_db.Lections.Count(), check.AreChecked.Count];
+            List<Lection> allLections = _db.Lections.ToList();
+            int dec = 1;
+            foreach (int i in check.AreChecked)
+            {
+                allLections.RemoveAt(i - dec);
+                dec++;
+            }
+            if (allLections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+            int index = 0;
+            foreach (Lection l in lections)
+            {
+                foreach (Lection al in allLections)
+                {
+                    coeffsMatrix[al.Id - 1,index] = Measures.CorrelationDistance(l, al) * Measures.EqualValues(l, al);
+                }
+                index++;
+            }
+
+
+            List<double> coeffsList = new double[allLections.Count].ToList();
+            for(int j = 0; j < allLections.Count; j++)
+            {
+                for(int i = 0; i < lections.Count; i++)
+                {
+                    coeffsList[j] += coeffsMatrix[j, i];
+                }
+            }
+
+            List<LectionCoeff> lc = new List<LectionCoeff>();
+            for (int i = 0; i < coeffsList.Count; i++)
+            {
+                if (coeffsList[i] > 0)
+                {
+                    lc.Add(new LectionCoeff { Id = i + 1, Coeff = coeffsList[i] });
+                }
+            }
+
+            
+
+            return View(lc.OrderByDescending(c => c.Coeff).ToList());
         }
 
-        //[HttpGet("similarlections")]
-        //public IActionResult SimilarLections()
-        //{
-           
-        //    return View();
-        //}
+        [HttpGet("Content/{id}")]
+        public IActionResult Content(int id)
+        {
+
+
+            List<UserMark> userMarks = _db.UserMarks.Where(um => um.UserId == id).ToList();
+            List<Lection> lections = new List<Lection>();
+            foreach (UserMark um in userMarks)
+            {
+                lections.Add(_db.Lections.FirstOrDefault(l => l.Id == um.LectionId));
+            }
+
+            if (lections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+
+            double[,] coeffsMatrix = new double[_db.Lections.Count(), lections.Count];
+            List<Lection> allLections = _db.Lections.ToList();
+
+            allLections = allLections.Except(lections).ToList();
+
+            if (allLections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+            int index = 0;
+            foreach (Lection l in lections)
+            {
+                foreach (Lection al in allLections)
+                {
+                    coeffsMatrix[al.Id - 1, index] = Measures.CorrelationDistance(l, al) * Measures.EqualValues(l, al);
+                }
+                index++;
+            }
+
+
+            List<double> coeffsList = new double[allLections.Count].ToList();
+            for (int j = 0; j < allLections.Count; j++)
+            {
+                for (int i = 0; i < lections.Count; i++)
+                {
+                    coeffsList[j] += coeffsMatrix[j, i];
+                }
+            }
+
+            List<int> dontshow = _db.UserLections.Where(ul => ul.UserId == id).Select(ul => ul.LectionId).ToList();
+
+            List<LectionCoeff> lc = new List<LectionCoeff>();
+            for (int i = 0; i < coeffsList.Count; i++)
+            {
+                if (coeffsList[i] > 0 && dontshow.IndexOf(i + 1) == -1)
+                {
+                    lc.Add(new LectionCoeff { Id = i + 1, Coeff = coeffsList[i], UserId = id });
+                }
+            }
+
+
+
+            return View(lc.OrderByDescending(c => c.Coeff).ToList());
+        }
+
     }
 }
