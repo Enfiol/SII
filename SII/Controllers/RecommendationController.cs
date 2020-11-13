@@ -242,7 +242,7 @@ namespace SII.Controllers
                 return View(new List<LectionCoeff>());
             }
 
-            double[,] coeffsMatrix = new double[_db.Lections.Count(), check.AreChecked.Count];
+            
             List<Lection> allLections = _db.Lections.ToList();
             int dec = 1;
             foreach (int i in check.AreChecked)
@@ -255,6 +255,7 @@ namespace SII.Controllers
                 return View(new List<LectionCoeff>());
             }
 
+            double[,] coeffsMatrix = new double[_db.Lections.Count(), check.AreChecked.Count];
             int index = 0;
             foreach (Lection l in lections)
             {
@@ -353,5 +354,127 @@ namespace SII.Controllers
             return View(lc.OrderByDescending(c => c.Coeff).ToList());
         }
 
+        [HttpGet("Search")]
+        public IActionResult Search(SearchDTO searchDTO)
+        {
+            if(searchDTO.Author==null)
+            {
+                return View(new List<LectionSearchDTO>());
+            }
+
+            var strictLections = _db.Lections.Where(l => l.Language == searchDTO.Language);
+            strictLections = strictLections.Where(l => l.Subject == searchDTO.Subject);
+            strictLections = strictLections.Where(l => l.Author == searchDTO.Author);
+            strictLections = strictLections.Where(l => l.University == searchDTO.University);
+            strictLections = strictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages);
+            strictLections = strictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating);
+            strictLections = strictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes);
+            strictLections = strictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear);
+
+
+            List<LectionSearchDTO> result = new List<LectionSearchDTO>();
+            foreach(Lection l in strictLections)
+            {
+                result.Add(new LectionSearchDTO()
+                {
+                    Title = l.Title,
+                    Author = l.Author,
+                    Language = l.Language,
+                    Pages = l.Pages,
+                    Rating = l.Rating,
+                    Subject = l.Subject,
+                    ThemesCount = l.ThemesCount,
+                    University = l.University,
+                    Year = l.Year,
+                    Strict = "Strict"
+                });
+            }
+
+            var notstrictLections = _db.Lections.ToList();
+            if (searchDTO.StrictProperties.IndexOf(1) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.University == searchDTO.University).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(2) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Subject == searchDTO.Subject).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(3) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Language == searchDTO.Language).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(4) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Author == searchDTO.Author).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(5) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(6) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(7) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages).ToList();
+            }
+            if (searchDTO.StrictProperties.IndexOf(8) != -1)
+            {
+                notstrictLections = notstrictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes).ToList();
+            }
+            
+
+            LectionCoeff[,] coeffsMatrix = new LectionCoeff[notstrictLections.Count, result.Count];
+
+            for (int i = 0; i < strictLections.Count(); i++)
+            {
+                for(int j = 0; j < notstrictLections.Count; j++)
+                {
+                    coeffsMatrix[j, i] = new LectionCoeff() { Id = notstrictLections[j].Id, 
+                        Coeff = Measures.CorrelationDistance(notstrictLections[j], strictLections.ToList()[i]) * Measures.EqualValues(notstrictLections[j], strictLections.ToList()[i]) };
+                }
+            }
+
+            List<LectionCoeff> coeffsList = new List<LectionCoeff>();
+            for (int j = 0; j < notstrictLections.Count(); j++)
+            {
+                double coeff = 0;
+                for (int i = 0; i < strictLections.Count(); i++)
+                {
+                    coeff += coeffsMatrix[j, i].Coeff;
+                }
+                coeffsList.Add(new LectionCoeff() { Coeff = coeff, Id = coeffsMatrix[j,0].Id });
+            }
+
+            coeffsList = coeffsList.OrderByDescending(l => l.Coeff).ToList();
+
+            List<Lection> notstrictList = new List<Lection>();
+            for (int j = 0; j < notstrictLections.Count; j++)
+            {
+                if (coeffsList[j].Coeff > 0)
+                {
+                    notstrictList.Add(_db.Lections.FirstOrDefault(l => l.Id == coeffsList[j].Id));
+                }
+            }
+            notstrictLections = notstrictList.Except(strictLections).ToList();
+            foreach(Lection l in notstrictLections)
+            {
+                result.Add(new LectionSearchDTO()
+                {
+                    Title = l.Title,
+                    Author = l.Author,
+                    Language = l.Language,
+                    Pages = l.Pages,
+                    Rating = l.Rating,
+                    Subject = l.Subject,
+                    ThemesCount = l.ThemesCount,
+                    University = l.University,
+                    Year = l.Year,
+                    Strict = "Not strict"
+                });
+            }
+            return View(result);
+        }
     }
 }

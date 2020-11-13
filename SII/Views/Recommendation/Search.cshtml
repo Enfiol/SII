@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SII.LectionSearchDTO>
 @{
     ViewData["Title"] = "Search";
     Layout = "Layout";
@@ -6,3 +6,99 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <h1>Search</h1>
 
+<form method="get">
+    <fieldset>
+        <legend>Search</legend>
+        <div>
+            <label for="University">University:</label>
+            <input type="text" name="University" value="University0" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="1" checked/>
+        </div>
+        <div>
+            <label for="Subject">Subject:</label>
+            <input type="text" name="Subject" value="Subject0" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="2" checked/>
+        </div>
+        <div>
+            <label for="Language">Language:</label>
+            <input type="text" name="Language" value="English" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="3" checked/>
+        </div>
+        <div>
+            <label for="Author">Author:</label>
+            <input type="text" name="Author" value="Author0" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="4" checked/>
+        </div>
+        <div>
+            <label for="MinRating">MinRating:</label>
+            <input type="text" name="MinRating" value="0" />
+            <label for="MaxRating">MaxRating:</label>
+            <input type="text" name="MaxRating" value="5" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="5" checked/>
+        </div>
+        <div>
+            <label for="MinPages">MinPages:</label>
+            <input type="text" name="MinPages" value="0" />
+            <label for="MaxPages">MaxPages:</label>
+            <input type="text" name="MaxPages" value="100" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="6" checked/>
+        </div>
+        <div>
+            <label for="MinYear">MinYear:</label>
+            <input type="text" name="MinYear" value="1990" />
+            <label for="MaxYear">MaxYear:</label>
+            <input type="text" name="MaxYear" value="@DateTime.Now.Year" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="7" checked/>
+        </div>
+        <div>
+            <label for="MinThemes">MinThemes:</label>
+            <input type="text" name="MinThemes" value="1" />
+            <label for="MaxThemes">MaxThemes:</label>
+            <input type="text" name="MaxThemes" value="100" />
+            <label>Strict</label>
+            <input type="checkbox" name="StrictProperties" value="8" checked/>
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Search" class="submit" />
+        </div>
+
+    </fieldset>
+</form>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>University</th>
+        <th>Author</th>
+        <th>Subject</th>
+        <th>Language</th>
+        <th>Rating</th>
+        <th>Pages</th>
+        <th>Year</th>
+        <th>ThemesCount</th>
+        <th>Strict</th>
+    </tr>
+    @foreach (SII.LectionSearchDTO l in Model)
+    {
+    <tr>
+        <td>@l.Title</td>
+        <td>@l.University</td>
+        <td>@l.Author</td>
+        <td>@l.Subject</td>
+        <td>@l.Language</td>
+        <td>@l.Rating</td>
+        <td>@l.Pages</td>
+        <td>@l.Year</td>
+        <td>@l.ThemesCount</td>
+        <td>@l.Strict</td>
+    </tr>
+    }
+</table>
