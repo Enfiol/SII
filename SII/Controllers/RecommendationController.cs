@@ -405,39 +405,41 @@ namespace SII.Controllers
                 });
             }
             var notstrictLections = _db.Lections.ToList();
-            if (searchDTO.StrictProperties.IndexOf(1) != -1)
+            if (searchDTO.StrictProperties != null)
             {
-                notstrictLections = notstrictLections.Where(l => l.University == searchDTO.University).ToList();
+                if (searchDTO.StrictProperties.IndexOf(1) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.University == searchDTO.University).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(2) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Subject == searchDTO.Subject).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(3) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Language == searchDTO.Language).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(4) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Author == searchDTO.Author).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(5) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(6) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(7) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages).ToList();
+                }
+                if (searchDTO.StrictProperties.IndexOf(8) != -1)
+                {
+                    notstrictLections = notstrictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes).ToList();
+                }
             }
-            if (searchDTO.StrictProperties.IndexOf(2) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Subject == searchDTO.Subject).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(3) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Language == searchDTO.Language).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(4) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Author == searchDTO.Author).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(5) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(6) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(7) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages).ToList();
-            }
-            if (searchDTO.StrictProperties.IndexOf(8) != -1)
-            {
-                notstrictLections = notstrictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes).ToList();
-            }
-            
 
             LectionCoeff[,] coeffsMatrix = new LectionCoeff[notstrictLections.Count, strictLections.Count];
 
