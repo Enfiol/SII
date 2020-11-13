@@ -362,14 +362,14 @@ namespace SII.Controllers
                 return View(new List<LectionSearchDTO>());
             }
 
-            var strictLections = _db.Lections.Where(l => l.Language == searchDTO.Language);
-            strictLections = strictLections.Where(l => l.Subject == searchDTO.Subject);
-            strictLections = strictLections.Where(l => l.Author == searchDTO.Author);
-            strictLections = strictLections.Where(l => l.University == searchDTO.University);
-            strictLections = strictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages);
-            strictLections = strictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating);
-            strictLections = strictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes);
-            strictLections = strictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear);
+            var strictLections = _db.Lections.Where(l => l.Language == searchDTO.Language).ToList();
+            strictLections = strictLections.Where(l => l.Subject == searchDTO.Subject).ToList();
+            strictLections = strictLections.Where(l => l.Author == searchDTO.Author).ToList();
+            strictLections = strictLections.Where(l => l.University == searchDTO.University).ToList();
+            strictLections = strictLections.Where(l => l.Pages >= searchDTO.MinPages && l.Pages <= searchDTO.MaxPages).ToList();
+            strictLections = strictLections.Where(l => l.Rating >= searchDTO.MinRating && l.Rating <= searchDTO.MaxRating).ToList();
+            strictLections = strictLections.Where(l => l.ThemesCount >= searchDTO.MinThemes && l.ThemesCount <= searchDTO.MaxThemes).ToList();
+            strictLections = strictLections.Where(l => l.Year >= searchDTO.MinYear && l.Year <= searchDTO.MaxYear).ToList();
 
 
             List<LectionSearchDTO> result = new List<LectionSearchDTO>();
@@ -390,6 +390,20 @@ namespace SII.Controllers
                 });
             }
 
+            if(strictLections.Count() == 0)
+            {
+                strictLections.Add(new Lection
+                {
+                    Author = searchDTO.Author,
+                    Language = searchDTO.Language,
+                    Pages = (searchDTO.MinPages + searchDTO.MaxPages) / 2,
+                    Subject = searchDTO.Subject,
+                    Rating = (searchDTO.MinRating + searchDTO.MaxRating) / 2,
+                    ThemesCount = (searchDTO.MinThemes + searchDTO.MaxThemes) / 2,
+                    University = searchDTO.University,
+                    Year = (searchDTO.MinYear + searchDTO.MaxYear) / 2
+                });
+            }
             var notstrictLections = _db.Lections.ToList();
             if (searchDTO.StrictProperties.IndexOf(1) != -1)
             {
@@ -425,7 +439,7 @@ namespace SII.Controllers
             }
             
 
-            LectionCoeff[,] coeffsMatrix = new LectionCoeff[notstrictLections.Count, result.Count];
+            LectionCoeff[,] coeffsMatrix = new LectionCoeff[notstrictLections.Count, strictLections.Count];
 
             for (int i = 0; i < strictLections.Count(); i++)
             {
@@ -452,10 +466,8 @@ namespace SII.Controllers
             List<Lection> notstrictList = new List<Lection>();
             for (int j = 0; j < notstrictLections.Count; j++)
             {
-                if (coeffsList[j].Coeff > 0)
-                {
-                    notstrictList.Add(_db.Lections.FirstOrDefault(l => l.Id == coeffsList[j].Id));
-                }
+                
+                notstrictList.Add(_db.Lections.FirstOrDefault(l => l.Id == coeffsList[j].Id));
             }
             notstrictLections = notstrictList.Except(strictLections).ToList();
             foreach(Lection l in notstrictLections)
