@@ -1,0 +1,28 @@
+﻿@model List<SII.HybridLectionCoeff>
+@{
+    ViewData["Title"] = "Similar Lections";
+    Layout = "Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<h1>Similar Lections</h1>
+
+<table>
+    <tr>
+        <th>LectionId</th>
+        <th>Reccomendation Coefficent</th>
+        <th>Source</th>
+    </tr>
+    @foreach (SII.HybridLectionCoeff l in Model)
+    {
+        <tr>
+            <td>@l.LectionId</td>
+            <td>@l.Coeff</td>
+            <td>@l.Source</td>
+        </tr>
+    }
+</table>

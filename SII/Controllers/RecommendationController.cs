@@ -50,11 +50,11 @@ namespace SII.Controllers
 
                 foreach (UserMark um in usermarks1)
                 {
-                    list1[um.LectionId] = um.Mark;
+                    list1[um.LectionId-1] = um.Mark;
                 }
                 foreach (UserMark um in usermarks2)
                 {
-                    list2[um.LectionId] = um.Mark;
+                    list2[um.LectionId-1] = um.Mark;
                 }
 
                 while (true)
@@ -150,11 +150,11 @@ namespace SII.Controllers
 
                 foreach (UserMark um in usermarks1)
                 {
-                    list1[um.LectionId] = um.Mark;
+                    list1[um.LectionId-1] = um.Mark;
                 }
                 foreach (UserMark um in usermarks2)
                 {
-                    list2[um.LectionId] = um.Mark;
+                    list2[um.LectionId-1] = um.Mark;
                 }
 
                 while (true)
@@ -489,6 +489,168 @@ namespace SII.Controllers
                 });
             }
             return View(result);
+        }
+
+        [HttpGet("hybrid/{id}")]
+        public IActionResult Hybrid(int id)
+        {
+            User user = _db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            List<User> users = _db.Users.Where(u => u.Id != id).ToList();
+
+            List<UserCoeff> userCoeffs = new List<UserCoeff>();
+            foreach (User u in users)
+            {
+                List<UserMark> usermarks1 = _db.UserMarks.Where(um => um.UserId == user.Id).ToList();
+                List<UserMark> usermarks2 = _db.UserMarks.Where(um => um.UserId == u.Id).ToList();
+
+                int lectionsNumber = _db.Lections.Count();
+
+                List<double> list1 = new double[lectionsNumber].ToList();
+                List<double> list2 = new double[lectionsNumber].ToList();
+
+                foreach (UserMark um in usermarks1)
+                {
+                    list1[um.LectionId-1] = um.Mark;
+                }
+                foreach (UserMark um in usermarks2)
+                {
+                    list2[um.LectionId-1] = um.Mark;
+                }
+
+                while (true)
+                {
+
+                    int index1 = list1.IndexOf(0);
+                    if (index1 != -1)
+                    {
+                        list1.RemoveAt(index1);
+                        list2.RemoveAt(index1);
+                    }
+                    int index2 = list2.IndexOf(0);
+                    if (index2 != -1)
+                    {
+                        list1.RemoveAt(index2);
+                        list2.RemoveAt(index2);
+                    }
+                    if (index1 == -1 && index2 == -1)
+                    {
+                        break;
+                    }
+                }
+                double coeff = CollaborationFilter.Correlation(list1.ToArray(), list2.ToArray());
+                userCoeffs.Add(new UserCoeff() { Coeff = coeff, UserId = u.Id });
+            }
+
+
+            userCoeffs = userCoeffs.Take(5).OrderByDescending(u => u.Coeff).ToList();
+
+            List<double> reccomend = new double[_db.Lections.Count()].ToList();
+
+            foreach (UserCoeff uc in userCoeffs)
+            {
+                var userMarks = _db.UserMarks.Where(um => um.UserId == uc.UserId);
+                foreach (var mark in userMarks)
+                {
+                    reccomend[mark.LectionId - 1] += mark.Mark * uc.Coeff;
+                }
+            }
+            double max = reccomend.Max();
+            List<HybridLectionCoeff> hlc = new List<HybridLectionCoeff>();
+            List<int> alreadyMarked = _db.UserMarks.Where(um => um.UserId == id).Select(um => um.LectionId).ToList();
+            List<int> dontShow = _db.UserLections.Where(um => um.UserId == id).Select(um => um.LectionId).ToList();
+            for (int i = 0; i < reccomend.Count; i++)
+            {
+                if (reccomend[i] > 0 && alreadyMarked.IndexOf(i + 1) == -1 && dontShow.IndexOf(i + 1) == -1)
+                {
+                    hlc.Add(new HybridLectionCoeff() { LectionId = i + 1, Coeff = reccomend[i] / max, Source = "Collaboration" });
+                }
+            }
+
+            List<UserMark> userMarksList = _db.UserMarks.Where(um => um.UserId == id).ToList();
+            List<Lection> lections = new List<Lection>();
+            foreach (UserMark um in userMarksList)
+            {
+                lections.Add(_db.Lections.FirstOrDefault(l => l.Id == um.LectionId));
+            }
+
+            if (lections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+
+            double[,] coeffsMatrix = new double[_db.Lections.Count(), lections.Count];
+            List<Lection> allLections = _db.Lections.ToList();
+
+            allLections = allLections.Except(lections).ToList();
+
+            if (allLections.Count == 0)
+            {
+                return View(new List<LectionCoeff>());
+            }
+
+            int index = 0;
+            foreach (Lection l in lections)
+            {
+                foreach (Lection al in allLections)
+                {
+                    coeffsMatrix[al.Id - 1, index] = Measures.CorrelationDistance(l, al) * Measures.EqualValues(l, al);
+                }
+                index++;
+            }
+
+
+            List<double> coeffsList = new double[allLections.Count].ToList();
+            for (int j = 0; j < allLections.Count; j++)
+            {
+                for (int i = 0; i < lections.Count; i++)
+                {
+                    coeffsList[j] += coeffsMatrix[j, i];
+                }
+            }
+
+            max = coeffsList.Max();
+
+            for (int i = 0; i < coeffsList.Count; i++)
+            {
+                if (coeffsList[i] > 0)
+                {
+                    if (hlc.FirstOrDefault(l => l.LectionId == i + 1) == null)
+                    {
+                        hlc.Add(new HybridLectionCoeff { LectionId = i + 1, Coeff = coeffsList[i] / max, Source = "Content" });
+                    }
+                    else
+                    {
+                        var lid = hlc.FirstOrDefault(l => l.LectionId == i + 1).LectionId;
+                        for (int j = 0; j < hlc.Count; j++)
+                        {
+                            if (hlc[j].LectionId == lid)
+                            {
+                                hlc[j].Coeff += coeffsList[i] / max;
+                                hlc[j].Source = "Hybrid";
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<int> dontshow = _db.UserLections.Where(ul => ul.UserId == id).Select(ul => ul.LectionId).ToList();
+
+            for (int i = 0; i < hlc.Count; i++)
+            {
+                if(dontshow.IndexOf(hlc[i].LectionId)!=-1)
+                {
+                    hlc.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return View(hlc.OrderByDescending(o => o.Coeff).ToList());
         }
     }
 }
